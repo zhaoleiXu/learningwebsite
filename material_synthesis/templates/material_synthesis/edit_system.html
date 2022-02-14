@@ -1,0 +1,12 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<p>Edit system:</p>
+
+<form action="{% url 'material_synthesis:edit_system' system.id %}" method= 'post'>
+   {% csrf_token %}
+   {{ form.as_p}}
+   <button name="submit">Edit system</button>
+</form>
+
+{% endblock content %}

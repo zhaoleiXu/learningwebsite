@@ -1,0 +1,22 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<h1>Systems</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+
+<ul>
+  {% for sy in systems %}
+   <li><h3>
+   <a href="{% url 'material_synthesis:system' sy.id %}">{{sy}}</a>
+   </h3></li>
+  {% empty %}
+   <li><h3>No systems have been added yet.</h3></li>
+  {% endfor %}
+</ul>
+
+<h3><a href="{% url 'material_synthesis:new_system' %}">Add a new system</a></h3>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>DXFC-add-dimension</title>
+        <!--meta charset="utf-8"-->
+    </head>
+    <body>
+        <a href="/">返回首页</a>
+        <a href="/dxfc">返回dxfc首页</a>
+        <form method="POST" action="/dxfc/dimension/add">
+            {% csrf_token %}
+        <input name="dimension" type="text">
+        <input type="submit" value="提交">
+        </form>
+    </body>
+</html>

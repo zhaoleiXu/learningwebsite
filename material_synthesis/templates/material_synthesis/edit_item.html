@@ -1,0 +1,13 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<p><a href="{% url 'material_synthesis:items' system.id %}">{{system}}</a></p>
+
+<p>Edit item:</p>
+<form action="{% url 'material_synthesis:edit_item' system.id item_id %}" method= 'post'>
+   {% csrf_token %}
+   {{ form.as_p}}
+   <button name="submit">Save changes</button>
+</form>
+
+{% endblock content %}

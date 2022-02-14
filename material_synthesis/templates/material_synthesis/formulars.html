@@ -1,0 +1,69 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<h3><a href="{% url 'material_synthesis:system' system.id %}">{{ system}}</a></h3>
+{% endblock page_header %}
+
+{% block content %}
+<p>
+  <form action="{% url 'material_synthesis:new_formular' system.id %}"method="GET" style="display:inline;">
+  <span>反应物<input name="reactants" value="{{ default_reactants }}" style="width:30px">种；生成物<input name="products" value="{{ default_products }}" style="width:30px">种
+  <input type="submit" value="Add new formular"></span>
+  </form>
+</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>合成式名称</th>
+        <th>耗时</th>
+        <th>简介</th>
+    </tr>
+    {# 分页 formular 改成了page #}
+    {% for formular in page %}
+    <tr>
+        <td>{{ formular.id }}</td>
+        <td>{{ formular.name }}</td>
+        <td>{{ formular.timecost }}</td>
+        <td>{{ formular.introdution }}</td>
+        <td><a href="{% url 'material_synthesis:edit_formular' system.id formular.id %}">修改</a></td>
+        <td><a href="{% url 'material_synthesis:del_formular' system.id formular.id %}">删除</a></td>
+    </tr>
+    {% empty %}
+ 	<td colspan="8">No formular still empty.</td>
+    {% endfor %}
+</table>
+    {# 分页功能 #}
+    {# 上一页功能 #}
+    {% if page.has_previous %}
+    <a href="{% url 'material_synthesis:formulars' system.id %}?page={{ page.previous_page_number }}&count={{ count }}">上一页</a>
+    {% else %}
+    上一页
+    {% endif %}
+
+    {# 以下增加各页的超链接 #}
+    {% for p in page.paginator.page_range %}
+        {# 判断p是否是当前页，如果是当前面，不加超链接#}
+        {% if p == page.number %}
+        {{ p }}
+        {% else %}
+        <a href="{% url 'material_synthesis:formulars' system.id %}?page={{ p }}&count={{ count }}">{{p}}</a>
+        {% endif %}
+    {% endfor %}
+
+    {#下一页功能#}
+    {% if page.has_next %}
+    <a href="{% url 'material_synthesis:formulars' system.id %}?page={{ page.next_page_number }}&count={{ count }}">下一页</a>
+    {% else %}
+    下一页
+    {% endif %}
+    <form action="{% url 'material_synthesis:formulars' system.id %}" method="GET" style="display:inline;">
+    <span>每页<input name="count" value="{{ count }}" style="width:25px">个<input type="submit" value="go" style="width:35px;
+	border-left-width: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-right-width: 2px;
+	border-radius: 5px;"></span></form>
+    <span>总计{{ page.paginator.num_pages }}页</span>
+    
+
+{% endblock content %}

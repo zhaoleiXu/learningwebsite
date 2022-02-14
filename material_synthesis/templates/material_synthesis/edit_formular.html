@@ -1,0 +1,34 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<p><a href="{% url 'material_synthesis:items' system.id %}">{{system}}</a></p>
+
+<p>Edit formular:</p>
+<form action="{% url 'material_synthesis:edit_formular' system.id formular.id %}" method= 'post'>
+   {% csrf_token %}
+   {{ form.as_p}}
+   <div>
+   <p style="color:green">反应物(若多，勿选即可;勾选才可删除;<a href="{% url 'material_synthesis:edit_system' system.id %}">不足改设置</a>):</p>
+   {% comment "用了更简洁的方式处理了列表" %}
+   <!--
+   {{ reactantformset.management_form }}
+   <table>
+   {% for reactantform in reactantformset %}
+   {{ reactantform }}
+   {% endfor %}
+   </table>-->
+   {% endcomment %}
+   <table>
+   {{ reactantformset }}
+   </table>
+   </div>
+   <div>
+   <p style="color:red">生成物（同反应物）:</p>
+   <table>
+   {{ productformset }}
+   </table>
+   </div>
+   <button name="submit">Save formular</button>
+</form>
+
+{% endblock content %}

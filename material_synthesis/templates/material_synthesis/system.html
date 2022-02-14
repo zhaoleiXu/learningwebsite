@@ -1,0 +1,14 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<h3>{{ system}}&nbsp;<span><a href="{% url 'material_synthesis:edit_system' system.id %}" style="font-size: 70%">改名</a>&nbsp;<a href="{% url 'material_synthesis:del_system' system.id %}" onclick='return confirm("系统内部数据也将删除，确认要删吗？");' style="font-size: 70%">删除</a></span></h3>
+{% endblock page_header %}
+
+{% block content %}
+<p>
+  <a href="{% url 'material_synthesis:items' system.id %}">Items</a>
+  <a href="{% url 'material_synthesis:formulars' system.id %}">Formulars</a>
+</p>
+
+
+{% endblock content %}

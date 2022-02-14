@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>DXFC-add-dimension</title>
+        <!--meta charset="utf-8"-->
+    </head>
+    <body>
+        <a href="/">返回首页</a>
+        <a href="/dxfc">返回dxfc首页</a>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>维度</th>
+                <th>修改</th>
+                <th>删除</th>
+            </tr>
+            {% for dim in dims %}
+            <tr>
+                <td>{{ dim.id }}</td>
+                <td>{{ dim.name }}</td>
+                <td>
+                    <a href="/dxfc/dimension/edit/{{ dim.id }}">修改</a>
+                </td>
+                <td>
+                    <a href="/dxfc/dimension/del/{{ dim.id }}">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>no dimension has been added yet.</tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
